@@ -1,0 +1,21 @@
+{
+    "name": "フジロック持ち物リスト",
+    "short_name": "フジ持ち物",
+    "description": "フジロックフェスティバルのための持ち物チェックリスト",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#222222",
+    "icons": [
+        {
+            "src": "icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
