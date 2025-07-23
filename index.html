@@ -10,7 +10,23 @@
     <meta name="theme-color" content="#222222"/>
 </head>
 <body>
-
+    <div id="auth-overlay">
+        <div id="auth-container">
+            <h2>認証が必要です</h2>
+            <div id="register-section" style="display: none;">
+                <p>最初にパスワードを設定し、生体認証を登録します。</p>
+                <input type="password" id="password-input" placeholder="パスワードを設定">
+                <button id="register-button">登録する</button>
+            </div>
+            <div id="login-section" style="display: none;">
+                <p>生体認証またはパスワードでロックを解除してください。</p>
+                <button id="login-bio-button">生体認証で解除</button>
+                <input type="password" id="password-login-input" placeholder="パスワードを入力">
+                <button id="login-pass-button">パスワードで解除</button>
+            </div>
+            <p id="auth-message"></p>
+        </div>
+    </div>
     <header>
         <h1>フジロック持ち物リスト</h1>
     </header>
