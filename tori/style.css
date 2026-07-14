@@ -380,6 +380,14 @@ main {
     background: rgba(230, 66, 25, 0.07);
     border-color: rgba(230, 66, 25, 0.35);
 }
+.row-input.subheading-input {
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    background: rgba(1, 26, 56, 0.06);
+    border-color: rgba(1, 26, 56, 0.28);
+}
 .mini-btn {
     flex-shrink: 0;
     width: 2rem; height: 2rem;
@@ -393,7 +401,7 @@ main {
 }
 .mini-btn:hover { background: rgba(230, 66, 25, 0.1); border-color: var(--vermilion); }
 
-.add-row { display: flex; gap: 0.5rem; padding: 0.6rem 0.3rem 0.3rem; }
+.add-row { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.6rem 0.3rem 0.3rem; }
 .pill-btn {
     padding: 0.5rem 1rem;
     border: 2px dashed var(--vermilion);

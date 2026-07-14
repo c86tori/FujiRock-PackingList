@@ -122,14 +122,17 @@ function pillBtn(text, onClick, cls = 'pill-btn') {
     return b;
 }
 
-// 見出し記号でインデント段数を推定（［］=段0 → 中身段1 / ＜＞=段1 → 中身段2）
+// 見出しの段（0=見出し / 1=小見出し）。level指定があれば優先、無ければ記号で推定（＜＞=小見出し）
+function headingLevel(it) {
+    if (typeof it.level === 'number') return it.level === 1 ? 1 : 0;
+    return /^[＜<]/.test((it.text || '').trim()) ? 1 : 0;
+}
 function computeIndents(items) {
     const levels = [];
     let itemIndent = 0;
     for (const it of items) {
         if (it.type === 'heading') {
-            const isSub = /^[＜<]/.test((it.text || '').trim());
-            const h = isSub ? 1 : 0;
+            const h = headingLevel(it);
             levels.push(h);
             itemIndent = h + 1;
         } else levels.push(itemIndent);
@@ -270,8 +273,9 @@ function renderCategory(cat, ci) {
     inner.appendChild(list);
     if (editMode) {
         inner.appendChild(el('div', { class: 'add-row' }, [
-            pillBtn('＋ 項目', () => addItem(ci, 'check')),
             pillBtn('＋ 見出し', () => addItem(ci, 'heading')),
+            pillBtn('＋ 小見出し', () => addItem(ci, 'subheading')),
+            pillBtn('＋ 項目', () => addItem(ci, 'check')),
         ]));
     }
     body.appendChild(inner);
@@ -291,15 +295,20 @@ function renderRow(cat, ci, item, ii, level) {
     row.appendChild(grip('grip'));
 
     if (editMode) {
+        const isSub = isHeading && level === 1;
         const input = el('input', {
-            class: 'row-input' + (isHeading ? ' heading-input' : ''),
+            class: 'row-input' + (isHeading ? (isSub ? ' subheading-input' : ' heading-input') : ''),
             type: 'text', value: item.text || '',
-            placeholder: isHeading ? '見出し' : '項目名',
+            placeholder: isHeading ? (isSub ? '小見出し' : '見出し') : '項目名',
             'data-cat': ci, 'data-item': ii,
         });
         input.addEventListener('input', () => { item.text = input.value; save(); });
         input.addEventListener('pointerdown', e => e.stopPropagation());
         row.appendChild(input);
+        if (isHeading) {
+            row.appendChild(iconBtn(isSub ? '大' : '小', isSub ? '見出し（大）にする' : '小見出しにする',
+                () => setHeadingLevel(ci, ii, isSub ? 0 : 1)));
+        }
         row.appendChild(iconBtn('🗑', '削除', () => deleteItem(ci, ii)));
         return row;
     }
@@ -399,10 +408,17 @@ function addCategory() {
     save(); render();
 }
 function addItem(ci, type) {
-    const item = type === 'heading' ? heading('') : check('');
+    let item;
+    if (type === 'heading') item = { type: 'heading', level: 0, text: '' };
+    else if (type === 'subheading') item = { type: 'heading', level: 1, text: '' };
+    else item = check('');
     data.categories[ci].items.push(item);
     data.categories[ci].open = true;
     focusAfterRender = { cat: ci, item: data.categories[ci].items.length - 1 };
+    save(); render();
+}
+function setHeadingLevel(ci, ii, lv) {
+    data.categories[ci].items[ii].level = lv;
     save(); render();
 }
 function deleteItem(ci, ii) { data.categories[ci].items.splice(ii, 1); save(); render(); }
