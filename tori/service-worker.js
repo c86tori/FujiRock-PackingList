@@ -1,4 +1,4 @@
-const CACHE_NAME = 'packing-list-v6';
+const CACHE_NAME = 'packing-list-tori-v6';
 const urlsToCache = [
     './',
     './index.html',

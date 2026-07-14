@@ -1,7 +1,7 @@
 {
-    "name": "持ち物チェックリスト",
-    "short_name": "持ち物リスト",
-    "description": "項目や階層を自由に編集できる持ち物チェックリスト",
+    "name": "フジロック持ち物リスト（tori）",
+    "short_name": "tori持ち物",
+    "description": "tori専用の持ち物チェックリスト",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#F2EFEB",

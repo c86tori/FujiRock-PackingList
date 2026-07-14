@@ -8,7 +8,7 @@
 //            items:[ {type:'heading',text} | {type:'check',text,checked} ] } ] }
 // =================================================================
 
-const STORAGE_KEY = 'packingListData_v3';
+const STORAGE_KEY = 'packingListData_tori'; // tori専用（汎用版と保存領域を分ける）
 
 const heading = text => ({ type: 'heading', text });
 const check   = text => ({ type: 'check', text, checked: false });
@@ -17,52 +17,55 @@ const check   = text => ({ type: 'check', text, checked: false });
 const defaultData = () => ({
     title: 'フジロック持ち物リスト',
     categories: [
-        { name: '会場持ち歩きリュック', open: false, items: [
+        { name: '山と道mini', open: false, items: [
             heading('［背面ポケット］'),
-            check('日焼け止め'), check('フェイスシート'), check('ビールメリケンサック'), check('虫除けスプレー'),
+            check('日焼け止め'), check('フェイスシート'), check('ビールメリケンサック'),
             heading('［サイドポケット］'),
             check('水筒'),
             heading('［中身］'),
-            check('タオル'), check('ポンチョ(青)'), check('フリース'),
-            heading('＜黄色いポーチ＞'),
-            check('モバイルバッテリー'), check('USBコード類'), check('ヘッドライト'), check('単4の乾電池'),
+            check('タオル'), check('ポンチョ(青)'), check('フリース'), check('膝サポ'),
             heading('＜赤いポーチ＞'),
-            check('テーピング'), check('絆創膏'), check('爪切り'), check('コンタクトレンズ'),
+            check('モバイルバッテリー1'), check('モバイルバッテリー2'), check('USBコード類'),
+            check('拡張コンセント'), check('ヘッドライト'), check('単4の乾電池'),
+            heading('＜黄色いポーチ＞'),
+            check('テーピング'), check('絆創膏'), check('爪切り'), check('耳栓(車内睡眠用)'),
+            check('有線イヤホン(車内睡眠用)'), check('無線イヤホン(どっちでも)'), check('コンタクトレンズ'),
             check('ロキソニン'), check('ロキソニンテープ'), check('ポケットティッシュ'),
         ]},
         { name: '宿泊リュック', open: false, items: [
             heading('［背ポケット］'),
-            check('財布→カード類は別にまとめる'),
+            check('財布→カード類はUnderTheSunへ'),
             heading('［中身］'),
             check('コンビニ袋'), check('開催中に着るTシャツ3枚'), check('パンツ1枚'), check('靴下1枚'),
             check('タオル'), check('3日目のハンカチ'), check('ヘアスプレー'), check('化粧水'),
             check('クリーム'), check('髭剃り'),
         ]},
         { name: '車内ぶち込み', open: false, items: [
-            check('エアマット'), check('ミニクーラーボックス'), check('折りたたみ傘'),
+            check('エアマット'), check('ミニクーラーボックス'), check('折りたたみチェア小（予備）'), check('ビニール傘'),
             heading('［ダッシュボード］'),
             check('駐車券'), check('リストバンド'), check('タイムテーブル'),
             heading('［車中泊ダンボール］'),
-            check('ボディシート'), check('寝るT'), check('パンツ2枚'), check('靴下1枚'),
-            check('帰りのくそ服'), check('コンビニ袋'), check('2日目のタオル'), check('3日目のタオル'),
-            check('どおでもいいくそタオル'), check('2日目のハンカチ（洗って使え）'), check('キャップ'),
+            check('ボディシート'), check('Tシャツ2枚'), check('パンツ2枚'), check('靴下1枚'),
+            check('帰りのゆる服'), check('オーバーオール'), check('コンビニ袋'), check('2日目のタオル'),
+            check('3日目のタオル'), check('どおでもいいタオル'), check('2日目のハンカチ'), check('キャップ'),
             heading('［そのたダンボール］'),
-            check('長靴'), check('サンダル'), check('窓ガラス隠すやつ'),
+            check('コロンビアポンチョ'), check('長靴'), check('サンダル'), check('窓ガラス隠すやつ'),
             heading('［黄色いザック］'),
-            check('折りたたみチェア大'),
+            check('折りたたみチェア大'), check('折りたたみチェア小'), check('レジャーシート'),
         ]},
         { name: '当日用意するもの', open: false, items: [
             heading('＜カードサイフ（UnderTheSun）＞'),
             check('健康保険証'), check('運転免許証'), check('金'),
             heading('＜その他＞'),
-            check('ハンカチ'), check('家の鍵'), check('車のキー'),
+            check('ハンカチ'), check('鍵'), check('車のキー'),
             check('Applewatch'), check('Applewatchバッテリー'), check('拡張コンセント'),
-            check('化粧水'), check('クリーム'), check('髭剃り'), check('無線イヤホン(どっちでも)'),
+            check('ヘアスプレー'), check('化粧水'), check('クリーム'), check('髭剃り'),
+            check('無線イヤホン(どっちでも)'),
         ]},
         { name: '当日身につけるもの', open: false, items: [
-            check('サングラス'), check('ハット'), check('アンダーシャツ'), check('コンプレッションウェア上'),
-            check('コンプレッションウェア下'), check('Tシャツ'), check('速乾パンツ'), check('パンツ'),
-            check('ハンカチ'), check('スマホ'),
+            check('メガネ'), check('ハット'), check('アンダーシャツ'), check('コンプレッションウェア上'),
+            check('コンプレッションウェア下'), check('足首'), check('Tシャツ'), check('速乾パンツ'),
+            check('山と道パンツ'), check('ハンカチ'), check('スマホ'),
         ]},
     ]
 });
@@ -191,7 +194,7 @@ function renderHeader() {
     const toggle = document.getElementById('edit-toggle');
     const hint = document.getElementById('hint');
     const help = document.getElementById('edit-help');
-    document.title = data.title || '持ち物チェックリスト';
+    document.title = (data.title || 'フジロック持ち物リスト') + '（tori）';
 
     // 円形プログレスリング
     const ring = document.getElementById('ring-slot');
@@ -216,7 +219,7 @@ function renderHeader() {
         toggle.classList.add('active');
         hint.hidden = true; help.hidden = false;
     } else {
-        titleEl.textContent = data.title || '持ち物チェックリスト';
+        titleEl.textContent = data.title || 'フジロック持ち物リスト';
         toggle.textContent = '✎';
         toggle.classList.remove('active');
         hint.hidden = false; help.hidden = true;
